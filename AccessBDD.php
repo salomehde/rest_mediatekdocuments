@@ -67,7 +67,9 @@ class AccessBDD {
                 case "commandedocument" :
                     return $this->selectAllCommandesDocument($id);
                 case "abonnement" :
-                     return $this->selectAllAbonnements($id);
+                    return $this->selectAllAbonnements($id);
+                case "utilisateur" :
+                    return $this->selectUtilisateur($id);
                 default:
                     // cas d'un select portant sur une table simple			
                     $param = array(
@@ -199,6 +201,18 @@ class AccessBDD {
         $req .= "join abonnement a on c.id=a.id ";
         $req .= "where a.idRevue= :idDocument ";
         $req .= "order by c.dateCommande DESC";
+        return $this->conn->query($req, $param);
+    }
+    
+    
+    public function selectUtilisateur($id){
+        $param = array(
+                "login" => $id
+        );
+        $req = "SELECT u.idService, u.login, u.password, s.libelle ";
+    $req .= "FROM utilisateur u ";
+    $req .= "JOIN service s ON u.idService=s.idService ";
+    $req .= "WHERE u.login= :login ";
         return $this->conn->query($req, $param);
     }
     
