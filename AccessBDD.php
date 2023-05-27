@@ -204,7 +204,11 @@ class AccessBDD {
         return $this->conn->query($req, $param);
     }
     
-    
+    /**
+     * récupération d'un des utilisateurs
+     * @param string $id id de l'utilisateur
+     * @return lignes de la requete
+     */
     public function selectUtilisateur($id){
         $param = array(
                 "login" => $id
